@@ -1,6 +1,7 @@
 $(document).ready(function () {
 
     //Rotating text on header
+<<<<<<< HEAD:assets/java/javascript.js
     var animationDelay = 2500;
 
     animateHeadline($('.cd-headline'));
@@ -28,6 +29,39 @@ $(document).ready(function () {
         $oldWord.removeClass('is-visible').addClass('is-hidden');
         $newWord.removeClass('is-hidden').addClass('is-visible');
     }
+=======
+   var animationDelay = 2500;
+
+   $('.parallax').parallax();
+
+
+
+   animateHeadline($('.cd-headline'));
+   
+   function animateHeadline($headlines) {
+     $headlines.each(function(){
+        var headline = $(this);
+        //trigger animation
+        setTimeout(function(){ hideWord( headline.find('.is-visible') ) }, animationDelay);
+        //other checks here ...
+     });
+   }
+   
+   function hideWord($word) {
+    var nextWord = takeNext($word);
+    switchWord($word, nextWord);
+    setTimeout(function(){ hideWord(nextWord) }, animationDelay);
+   }
+   
+   function takeNext($word) {
+    return (!$word.is(':last-child')) ? $word.next() : $word.parent().children().eq(0);
+   }
+   
+   function switchWord($oldWord, $newWord) {
+    $oldWord.removeClass('is-visible').addClass('is-hidden');
+    $newWord.removeClass('is-hidden').addClass('is-visible');
+   }
+>>>>>>> 868f710792700589784914b6891e795064de4127:assets/Javascript/javascript.js
     // init carousel
     $('.carousel').carousel()
 
