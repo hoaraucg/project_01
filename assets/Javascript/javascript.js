@@ -1,5 +1,7 @@
 $(document).ready(function () {
 
+    $('.parallax').parallax();
+    $('.carousel').carousel();
     //Rotating text on header
     var animationDelay = 2500;
 
