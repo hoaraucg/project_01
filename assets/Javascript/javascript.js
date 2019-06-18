@@ -82,7 +82,7 @@ $(document).ready(function () {
 
         // Ajax Function searching Eventbrite, filtered by Subcategories including Community and Environment, Zip Code used to return results sorted by closest to farthest from the user's Input
         $.ajax({
-            url: "https://www.eventbriteapi.com/v3/events/search/?sort_by=-distance&location.address=" + ebZip + "&subcategories=11002%2C1003&token=LDTPIPZLQT2AUI7OBDJJ",
+            url: "https://www.eventbriteapi.com/v3/events/search/?sort_by=-distance&location.within=100mi&location.address=" + ebZip + "&subcategories=11002%2C1003&token=LDTPIPZLQT2AUI7OBDJJ",
             method: "GET"
         })
             // Function Runs after receiving response
