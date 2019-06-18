@@ -1,37 +1,33 @@
 $(document).ready(function () {
 
     //Rotating text on header
-   var animationDelay = 2500;
+    var animationDelay = 2500;
 
-   $('.parallax').parallax();
+    animateHeadline($('.cd-headline'));
 
+    function animateHeadline($headlines) {
+        $headlines.each(function () {
+            var headline = $(this);
+            //trigger animation
+            setTimeout(function () { hideWord(headline.find('.is-visible')) }, animationDelay);
+            //other checks here ...
+        });
+    }
 
+    function hideWord($word) {
+        var nextWord = takeNext($word);
+        switchWord($word, nextWord);
+        setTimeout(function () { hideWord(nextWord) }, animationDelay);
+    }
 
-   animateHeadline($('.cd-headline'));
-   
-   function animateHeadline($headlines) {
-     $headlines.each(function(){
-        var headline = $(this);
-        //trigger animation
-        setTimeout(function(){ hideWord( headline.find('.is-visible') ) }, animationDelay);
-        //other checks here ...
-     });
-   }
-   
-   function hideWord($word) {
-    var nextWord = takeNext($word);
-    switchWord($word, nextWord);
-    setTimeout(function(){ hideWord(nextWord) }, animationDelay);
-   }
-   
-   function takeNext($word) {
-    return (!$word.is(':last-child')) ? $word.next() : $word.parent().children().eq(0);
-   }
-   
-   function switchWord($oldWord, $newWord) {
-    $oldWord.removeClass('is-visible').addClass('is-hidden');
-    $newWord.removeClass('is-hidden').addClass('is-visible');
-   }
+    function takeNext($word) {
+        return (!$word.is(':last-child')) ? $word.next() : $word.parent().children().eq(0);
+    }
+
+    function switchWord($oldWord, $newWord) {
+        $oldWord.removeClass('is-visible').addClass('is-hidden');
+        $newWord.removeClass('is-hidden').addClass('is-visible');
+    }
     // init carousel
     $('.carousel').carousel()
 
@@ -68,9 +64,9 @@ $(document).ready(function () {
                     var redLink = $("<a href='https://www.reddit.com" + redditLink + "'>" + "Click here for the original post." + "</a>");
 
                     // Appending to the Div
-                    $("#content-div").append(redImg);
-                    $("#content-div").append(redTitle);
-                    $("#content-div").append(redLink);
+                    $("#content-div").html(redImg);
+                    $("#content-div").html(redTitle);
+                    $("#content-div").html(redLink);
                     console.log(redImg);
 
                 };
@@ -96,7 +92,7 @@ $(document).ready(function () {
 
                     // Variables to be pulled and appended to the page
                     let ebTitle = ebResponse.events[i].name.text;
-                    let ebSnippet = ebResponse.events[i].description.text;
+                    let ebSnippet = ebResponse.events[i].summary;
                     let ebLink = ebResponse.events[i].url;
 
                     console.log(ebTitle);
@@ -104,12 +100,15 @@ $(document).ready(function () {
                     console.log(ebLink);
 
                     // Creating Link Tag
-                    var ebUrl = $("<a>");
-                    ebUrl.attr("href", ebLink);
+                    var ebUrl = $("<a href='" + ebLink + "'>Follow me to the Original Event page.</a>");
+
+                    var ebHead = $("<h3>" + ebTitle + "</h3>");
+
+                    var ebSummary = $("<h5>" + ebSnippet + "</h3>");
 
                     // Appending to the Div
-                    $("#content-div").append(ebTitle);
-                    $("#content-div").append(ebSnippet);
+                    $("#content-div").append(ebHead);
+                    $("#content-div").append(ebSummary);
                     $("#content-div").append(ebUrl);
                 };
             });
@@ -178,118 +177,126 @@ $(document).ready(function () {
             });
 
     });
-    //global variables
-    //assuming standard plastic water bottle is 12oz size
-    var standardBottle = 12;
-    var userInput;
-    var consumed;
-    var numberBottles;
-    var plasticSaved;
-
-    //hide times refilled until clicked
+    $("#waterbottleconsumptionhtml").hide();
     $("#timesrefilled").hide();
     $("#calculatebutton").hide();
     $("#results").hide();
     $("#year").hide();
     $("#refresh").hide();
 
-    //calculating the number of plastic bottles saved by taking the size of the reusable bottle selected, multiplied by the number of times refilled - then dividing that number by 12oz adn rounding it up to give you the number of plastic bottles saved
-    $("#consumption-button").one("click", function () {
-        let ounces = parseInt($(this).attr("data"));
-        //on click animate the image
-        $(this).animate({
-            left: '250px',
-            height: '+=150px',
-            width: '+=150px'
-        });
-        //on click hide other images
-        $(this).siblings("img").hide();
-        //on click show input for times refilled
-        $("#refresh").show();
-        $("#timesrefilled").show();
-        $("#calculatebutton").show();
-        $("#calculatebutton").on("click", function () {
-            //console log the reusable bottle size selected
-            console.log("reusable bottle size in oz: ", ounces);
-            userInput = $("#amountDrank").val();
-            consumed = ounces * userInput;
-            //console log total ounces consumed in reusable bottle 
-            console.log("total ounces consumed:", consumed);
-            numberBottles = consumed / standardBottle;
-            //console log unrounded 12 oz bottles saved
-            console.log("unrounded number of 12oz plastic bottles: ", numberBottles);
-            plasticSaved = Math.ceil(numberBottles);
-            //console log rounded up number of plastic bottles saved   
-            console.log("number of plastic water bottles to display: " + plasticSaved);
-            $("#calculatebutton").hide();
-            $("#results").show();
-            $("#results").append("You have saved " + plasticSaved + " plastic bottles today");
-            for (i = 0; i < plasticSaved; i++) {
-                $("#results").append('<img src="Assets/Images/iconfinder_1-43_2029207.png">');
-            }
-            $("#year").show();
-        });
-        $("#yearcalc").on("click", function () {
-            $("#yearcalc").hide();
-            let yearSaved = plasticSaved * 365;
-            console.log(yearSaved);
-            $("#year").append("At this rate you will save " + yearSaved + " bottles in a year")
-            for (i = 0; i < yearSaved; i++) {
-                $("#year").append('<img src="Assets/Images/iconfinder_1-43_2029207.png">');
-            }
+    $("#reuse-button").on("click", function () {
 
-        })
+        $("#waterbottleconsumptionhtml").show();
+        //global variables
+        //assuming standard plastic water bottle is 12oz size
+        var standardBottle = 12;
+        var userInput;
+        var consumed;
+        var numberBottles;
+        var plasticSaved;
 
-        $("#refresh").click(function () {
-            location.reload();
-        })
+        //hide times refilled until clicked
+
+
+        //calculating the number of plastic bottles saved by taking the size of the reusable bottle selected, multiplied by the number of times refilled - then dividing that number by 12oz adn rounding it up to give you the number of plastic bottles saved
+        $(".reusebottle").one("click", function () {
+            let ounces = parseInt($(this).attr("data"));
+            //on click animate the image
+            $(this).animate({
+                left: '250px',
+                height: '+=150px',
+                width: '+=150px'
+            });
+            //on click hide other images
+            $(this).siblings("img").hide();
+            //on click show input for times refilled
+            $("#refresh").show();
+            $("#timesrefilled").show();
+            $("#calculatebutton").show();
+            $("#calculatebutton").on("click", function () {
+                //console log the reusable bottle size selected
+                console.log("reusable bottle size in oz: ", ounces);
+                userInput = $("#amountDrank").val();
+                consumed = ounces * userInput;
+                //console log total ounces consumed in reusable bottle
+                console.log("total ounces consumed:", consumed);
+                numberBottles = consumed / standardBottle;
+                //console log unrounded 12 oz bottles saved
+                console.log("unrounded number of 12oz plastic bottles: ", numberBottles);
+                plasticSaved = Math.ceil(numberBottles);
+                //console log rounded up number of plastic bottles saved
+                console.log("number of plastic water bottles to display: " + plasticSaved);
+                $("#calculatebutton").hide();
+                $("#results").show();
+                $("#results").append("You have saved " + plasticSaved + " plastic bottles today");
+                for (i = 0; i < plasticSaved; i++) {
+                    $("#results").append('<img src="Assets/Images/iconfinder_1-43_2029207.png">');
+                }
+                $("#year").show();
+            });
+            $("#yearcalc").on("click", function () {
+                $("#yearcalc").hide();
+                let yearSaved = plasticSaved * 365;
+                console.log(yearSaved);
+                $("#year").append("At this rate you will save " + yearSaved + " bottles in a year")
+                for (i = 0; i < yearSaved; i++) {
+                    $("#year").append('<img src="Assets/Images/iconfinder_1-43_2029207.png">');
+                }
+
+            })
+
+            $("#refresh").click(function () {
+                location.reload();
+            })
+        });
+
     });
 
 
 
 });
 
-    // Earth911 API
-    $("#e911-button").on("click", function () {
-        var earthZip = $("#user-input").val();
+// Earth911 API
+$("#e911-button").on("click", function () {
+    var earthZip = $("#user-input").val();
 
-        $.ajax({
-            url: "https://api.earth911.com/earth911.getPostalData?api_key=27a4dfaff4691499&postal_code=" + earthZip + "&country=us",
-            method: "GET"
-        })
-            // Function Runs after receiving response
-            .then(function (earthResponse) {
-                console.log(earthResponse);
-                let earthLat = earthResponse.result.latitude
-                let earthLong = earthResponse.result.longitude
+    $.ajax({
+        url: "https://api.earth911.com/earth911.getPostalData?api_key=27a4dfaff4691499&postal_code=" + earthZip + "&country=us",
+        method: "GET"
+    })
+        // Function Runs after receiving response
+        .then(function (earthResponse) {
+            console.log(earthResponse);
+            let earthLat = earthResponse.result.latitude
+            let earthLong = earthResponse.result.longitude
 
-                $.ajax({
-                    url: "https://api.earth911.com/earth911.searchLocations?api_key=27a4dfaff4691499&latitude=" + earthLat + "&longitude=" + earthLong + "&max_results=20",
-                    method: "GET"
-                })
+            $.ajax({
+                url: "https://api.earth911.com/earth911.searchLocations?api_key=27a4dfaff4691499&latitude=" + earthLat + "&longitude=" + earthLong + "&max_results=20",
+                method: "GET"
+            })
 
-                // For loop to cycle through the results
-                for (var i = 0; i < 11; i++) {
+            // For loop to cycle through the results
+            for (var i = 0; i < 11; i++) {
 
-                    // Variables to be pulled and appended to the page
-                    let earthName = earthResponse.result[i].description;
-                    let earthType = earthResponse.result[i].location_type_id;
+                // Variables to be pulled and appended to the page
+                let earthName = earthResponse.result[i].description;
+                let earthType = earthResponse.result[i].location_type_id;
 
 
-                    console.log(earthName);
-                    console.log(earthType);
-                    console.log(earth3);
+                console.log(earthName);
+                console.log(earthType);
+                console.log(earth3);
 
-                    // Creating Link Tag
-                    let nytLink = $("<a>");
-                    nytLink.attr("href", nytURL);
+                // Creating Link Tag
+                let nytLink = $("<a>");
+                nytLink.attr("href", nytURL);
 
-                    // Appending to the Div
-                    $("#content-div").append(earthName);
-                    $("#content-div").append(earthType);
-                    $("#content-div").append(earth3);
+                // Appending to the Div
+                $("#content-div").append(earthName);
+                $("#content-div").append(earthType);
+                $("#content-div").append(earth3);
 
-                }
-            });
+            }
+        });
 
-    });
+});
