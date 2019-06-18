@@ -3,6 +3,10 @@ $(document).ready(function () {
     //Rotating text on header
    var animationDelay = 2500;
 
+   $('.parallax').parallax();
+
+
+
    animateHeadline($('.cd-headline'));
    
    function animateHeadline($headlines) {
