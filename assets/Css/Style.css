@@ -112,6 +112,11 @@ h1{
 .cd-intro {
   text-align:center;
 }
+<<<<<<< HEAD
+
+.class{
+  width: 100px;
+=======
 form {
   color:white;
 }
@@ -126,4 +131,5 @@ form {
 }
 button {
   background-color: rgb(25, 66, 25);
+>>>>>>> master
 }
