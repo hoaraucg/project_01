@@ -1,16 +1,16 @@
 
 #header{
-    background-color: green;
+    background-color: #1b5e20;
 }
 .primary-footer{
-    height: 250px;
+    height: 150px;
     width: 100%;
-    background-color: green;
+    background-color: #1b5e20;
 }
 .secondary-footer{
     height: 40px;
     width: 100%;
-    background-color: darkgreen;
+    background-color: #1b5e20;
     color: white;
     font-size: 18px;
     font-weight: bold;
@@ -37,7 +37,7 @@ h1{
     position: relative;
     opacity: 1;
     transform: rotateX(0deg);
-    color: gray;
+    color:  gray;
   }
   .cd-headline.rotate-1 b {
     opacity: 0;
@@ -118,4 +118,12 @@ form {
 .anchor {
   position: relative;
   top:-60px;
+}
+.headerimg {
+  height:60px;
+  width:60px;
+  margin-top:2px;
+}
+button {
+  background-color: rgb(25, 66, 25);
 }
