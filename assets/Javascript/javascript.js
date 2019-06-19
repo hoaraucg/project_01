@@ -36,6 +36,11 @@ $(document).ready(function () {
     // Reddit Button On Click Event
     // TODO: Interaction with what particular responses we want to use from the Object
     $("#reddit-button").on("click", function () {
+        $("#results-card").show();
+        $("#reuse-card").hide();
+        $("#reduce-card").hide();
+        $("#recycle-card").hide();
+        $("#read-card").hide();
 
         // Ajax Function searching Reddit API for Trashtag, Sorted by newest, Limited to 20 Returns
         $.ajax({
@@ -78,6 +83,12 @@ $(document).ready(function () {
     // EventBrite Button On Click Event
     // TODO: Interaction with what particular responses we want to use from the Object
     $("#eb-button").on("click", function () {
+        $("#results-card").hide();
+        $("#reuse-card").hide();
+        $("#reduce-card").show();
+        $("#recycle-card").hide();
+        $("#read-card").hide();
+
         var ebZip = $("#user-input").val();
 
         // Ajax Function searching Eventbrite, filtered by Subcategories including Community and Environment, Zip Code used to return results sorted by closest to farthest from the user's Input
@@ -120,6 +131,12 @@ $(document).ready(function () {
     // TODO: Interaction with what particular responses we want to use from the Object
     // TODO: Include this API Pull with the Eventbrite button event? Pull weather info for the date of the event, in the zip code user provides?
     $("#start-button").on("click", function () {
+        $("#results-card").hide();
+        $("#reuse-card").hide();
+        $("#reduce-card").hide();
+        $("#recycle-card").hide();
+        $("#read-card").hide();
+
         var weatherZip = $("#user-input").val();
 
         // Ajax Function searching Openweather for the current forecast in the zip code of the users input
@@ -145,6 +162,11 @@ $(document).ready(function () {
     // NY Times On click event
     // TODO: Interaction with what particular responses we want to use from the Object
     $("#nyt-button").on("click", function () {
+        $("#results-card").hide();
+        $("#reuse-card").hide();
+        $("#reduce-card").hide();
+        $("#recycle-card").hide();
+        $("#read-card").show();
 
         $.ajax({
             url: "https://api.nytimes.com/svc/search/v2/articlesearch.json?&q=nature&sort=newest&api-key=kfv7BnPMd5mvBPeGSaKGQdhyRAGGhhWG",
@@ -187,6 +209,11 @@ $(document).ready(function () {
     $("#refresh").hide();
 
     $("#reuse-button").on("click", function () {
+        $("#results-card").hide();
+        $("#reuse-card").show();
+        $("#reduce-card").hide();
+        $("#recycle-card").hide();
+        $("#read-card").hide();
 
         $("#waterbottleconsumptionhtml").show();
         //global variables
@@ -260,6 +287,12 @@ $(document).ready(function () {
 
 // Earth911 API
 $("#e911-button").on("click", function () {
+    $("#results-card").hide();
+    $("#reuse-card").hide();
+    $("#reduce-card").hide();
+    $("#recycle-card").show();
+    $("#read-card").hide();
+
     var earthZip = $("#user-input").val();
 
     $.ajax({
