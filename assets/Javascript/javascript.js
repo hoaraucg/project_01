@@ -70,7 +70,7 @@ $("#start-button").on("click", function(event) {
 
         // Ajax Function searching Reddit API for Trashtag, Sorted by newest, Limited to 20 Returns
         $.ajax({
-            url: "https://www.reddit.com/search.json?q=trashtag&sort=new&limit=20",
+            url: "https://www.reddit.com/search.json?q=trashtag&sort=new&limit=10",
             method: "GET"
         })
             // Function Runs after receiving response
@@ -88,20 +88,16 @@ $("#start-button").on("click", function(event) {
                     console.log(redditImage);
                     console.log(redditLink);
 
-                    // Creating Img Tag
-                    var redImg = $("<img src='" + redditImage + "' style='height:350px' style='width:400px'/>");
-
-                    var redTitle = $("<h4>" + redditTitle + "</h4>");
-
-                    // Creating Link Tag
-                    var redLink = $("<a href='https://www.reddit.com" + redditLink + "'>" + "Click here for the original post." + "</a>");
+                    var redditAppend = $('<div class="card horizontal blue-grey darken-1"><div class="card-image"><img src="'
+                    + redditImage +
+                    '" style="width:400px" style="height:300px"></div><div class="card-stacked"><div class="card-content white-text"><p>'
+                    + redditTitle +
+                    '</p></div><div class="card-action"><a href="'
+                    + redditLink + 
+                    '">Original Post</a></div></div></div></div>');
 
                     // Appending to the Div
-                    $("#content-div").html(redImg);
-                    $("#content-div").html(redTitle);
-                    $("#content-div").html(redLink);
-                    console.log(redImg);
-
+                    $(".row-append").append(redditAppend);
                 };
             });
     });
@@ -293,7 +289,7 @@ $("#start-button").on("click", function(event) {
 
             $("#refresh").click(function () {
                 location.reload();
-            })
+                })
         });
 
     });
@@ -342,9 +338,9 @@ $("#earth-button").on("click", function () {
 
                     var earthAppend = $('<div class="card blue-grey darken-1" id="card-box"><div class="card-content white-text"><span class="card-title">'
                     + earthName + 
-                    '"</span><p>"'
+                    '</span><p>'
                     + earthName +
-                    '"</p></div><div class="card-action"><p style="color:white">Distance to this Location: '
+                    '</p></div><div class="card-action"><p style="color:white">Distance to this Location: '
                     + earthDistance +
                     '</p></div></div>"');
 
@@ -352,6 +348,7 @@ $("#earth-button").on("click", function () {
 
                     // Appending to the Div
                     $(".row-append").append(earthAppend);
+                
 
                 }
             });
