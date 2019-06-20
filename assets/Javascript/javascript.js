@@ -65,7 +65,7 @@ $(document).ready(function () {
     // TODO: Interaction with what particular responses we want to use from the Object
     $("#reddit-button").on("click", function () {
         $(".row-append").empty();
-        $("#waterbottleconsumptionhtml").empty();
+        $("#waterbottleconsumptionhtml").hide();
 
 
         // Ajax Function searching Reddit API for Trashtag, Sorted by newest, Limited to 20 Returns
@@ -92,7 +92,7 @@ $(document).ready(function () {
                         + redditImage +
                         '" style="width:400px" style="height:300px"></div><div class="card-stacked"><div class="card-content white-text"><p>'
                         + redditTitle +
-                        '</p></div><div class="card-action"><a href="'
+                        '</p></div><div class="card-action"><a href="http://www.reddit.com'
                         + redditLink +
                         '">Original Post</a></div></div></div></div>');
 
@@ -106,7 +106,7 @@ $(document).ready(function () {
     // TODO: Interaction with what particular responses we want to use from the Object
     $("#eb-button").on("click", function () {
         $(".row-append").empty();
-        $("#waterbottleconsumptionhtml").empty();
+        $("#waterbottleconsumptionhtml").hide();
 
         // Ajax Function searching Eventbrite, filtered by Subcategories including Community and Environment, Zip Code used to return results sorted by closest to farthest from the user's Input
         $.ajax({
@@ -134,9 +134,9 @@ $(document).ready(function () {
                         + ebTitle +
                         '"</span><p>"'
                         + ebSnippet +
-                        '"</p></div><div class="card-action"><a href="#">"'
+                        '"</p></div><div class="card-action"><a href="'
                         + ebLink +
-                        '"</a></div></div>"');
+                        '">Visit the event on EventBrite.com</a></div></div>"');
 
 
 
@@ -178,7 +178,7 @@ $(document).ready(function () {
     // TODO: Interaction with what particular responses we want to use from the Object
     $("#nyt-button").on("click", function () {
         $(".row-append").empty();
-        $("#waterbottleconsumptionhtml").empty();
+        $("#waterbottleconsumptionhtml").hide();
 
         $.ajax({
             url: "https://api.nytimes.com/svc/search/v2/articlesearch.json?&q=nature&sort=newest&api-key=kfv7BnPMd5mvBPeGSaKGQdhyRAGGhhWG",
@@ -205,9 +205,9 @@ $(document).ready(function () {
                         + nytSnippet +
                         '"</span><p>"'
                         + nytLead +
-                        '"</p></div><div class="card-action"><a href="#">"'
+                        '"</p></div><div class="card-action"><a href="'
                         + nytURL +
-                        '"</a></div></div>"');
+                        '">Original Article</a></div></div>"');
 
 
 
@@ -303,7 +303,7 @@ $("#earth-button").on("click", function () {
     console.log("button clicked");
 
     $(".row-append").empty();
-    $("#waterbottleconsumptionhtml").empty();
+    $("#waterbottleconsumptionhtml").hide();
 
     $.ajax({
         url: "https:cors.io?https://api.earth911.com/earth911.getPostalData?api_key=27a4dfaff4691499&postal_code=" + localStorage.getItem("zip code") + "&country=us",
@@ -372,8 +372,8 @@ $("#earth-button").on("click", function () {
                 //         }
                 //     }
                 //     });
-                };
-            });
+            };
+        });
     });
 });
 // Earth911 API
