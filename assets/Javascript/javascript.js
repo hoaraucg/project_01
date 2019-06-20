@@ -276,7 +276,7 @@ $(document).ready(function () {
                 $("#results").show();
                 $("#results").append("You have saved " + plasticSaved + " plastic bottles today");
                 for (i = 0; i < plasticSaved; i++) {
-                    $("#results").append('<img src="Assets/Images/iconfinder_1-43_2029207.png">');
+                    $("#results").append('<img src="assets/images/iconfinder_1-43_2029207.png">');
                 }
                 $("#year").show();
             });
@@ -286,7 +286,7 @@ $(document).ready(function () {
                 console.log(yearSaved);
                 $("#year").append("At this rate you will save " + yearSaved + " bottles in a year")
                 for (i = 0; i < yearSaved; i++) {
-                    $("#year").append('<img src="Assets/Images/iconfinder_1-43_2029207.png">');
+                    $("#year").append('<img src="assets/images/iconfinder_1-43_2029207.png">');
                 }
 
             })
