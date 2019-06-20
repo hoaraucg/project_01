@@ -311,7 +311,7 @@ $("#earth-button").on("click", function () {
     $(".row-append").append("<p><b><i>Often times not knowing what you can recycle and where can make even the most environmentally conscious person send something to the landfill that could actually be recycled.  Using a simple material and zip code search, you can easily find your recycling solution.</i></b></p><br>");
 
     $.ajax({
-        url: "https:cors.io?https://api.earth911.com/earth911.getPostalData?api_key=27a4dfaff4691499&postal_code=" + localStorage.getItem("zip code") + "&country=us",
+        url: "https://cors.io?https://api.earth911.com/earth911.getPostalData?api_key=27a4dfaff4691499&postal_code=" + localStorage.getItem("zip code") + "&country=us",
         method: "GET",
         headers: { 'Access-Control-Allow-Origin': '*' },
     }).then(function (earthResponse) {
@@ -324,7 +324,7 @@ $("#earth-button").on("click", function () {
         console.log("long" + earthLong);
 
         $.ajax({
-            url: "https:cors.io?https://api.earth911.com/earth911.searchLocations?api_key=27a4dfaff4691499&latitude=" + earthLat + "&longitude=" + earthLong + "&max_results=5",
+            url: "https://cors.io?https://api.earth911.com/earth911.searchLocations?api_key=27a4dfaff4691499&latitude=" + earthLat + "&longitude=" + earthLong + "&max_results=5",
             method: "GET",
             headers: { 'Access-Control-Allow-Origin': '*' },
         }).then(function (earthResponse2) {
