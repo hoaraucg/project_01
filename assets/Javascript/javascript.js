@@ -33,31 +33,31 @@ $(document).ready(function () {
     // init carousel
     $('.carousel').carousel()
 
-// When users click "submit"
-$("#start-button").on("click", function(event) {
-    // This line prevents the page from refreshing when a user hits "enter".
-    event.preventDefault();
- 
-    // Grab the user input
-    var zipcodesave = $("#user-input").val().trim();
- 
-    // Clear absolutely everything stored in localStorage using localStorage.clear()
-    localStorage.clear();
- 
-    // Store the zip into localStorage using "localStorage.setItem"
-    localStorage.setItem("zip code", zipcodesave);
- 
-  });
+    // When users click "submit"
+    $("#start-button").on("click", function (event) {
+        // This line prevents the page from refreshing when a user hits "enter".
+        event.preventDefault();
 
-  //toast notification on save of zip code
-  $("#start-button").one("click", function(){
-      M.toast({html: 'Your zip code has been saved!'})
-  }) 
-  // By default (upon load) show the zip stored in localStorage using "localStorage.getItem"
-  $("#user-input").val(localStorage.getItem("zip code"));
+        // Grab the user input
+        var zipcodesave = $("#user-input").val().trim();
 
-  // By default (upon load) show the name stored in localStorage using "localStorage.getItem"
-  $("#greeting").text(localStorage.getItem("name"));
+        // Clear absolutely everything stored in localStorage using localStorage.clear()
+        localStorage.clear();
+
+        // Store the zip into localStorage using "localStorage.setItem"
+        localStorage.setItem("zip code", zipcodesave);
+
+    });
+
+    //toast notification on save of zip code
+    $("#start-button").one("click", function () {
+        M.toast({ html: 'Your zip code has been saved!' })
+    })
+    // By default (upon load) show the zip stored in localStorage using "localStorage.getItem"
+    $("#user-input").val(localStorage.getItem("zip code"));
+
+    // By default (upon load) show the name stored in localStorage using "localStorage.getItem"
+    $("#greeting").text(localStorage.getItem("name"));
 
 
 
@@ -70,7 +70,7 @@ $("#start-button").on("click", function(event) {
 
         // Ajax Function searching Reddit API for Trashtag, Sorted by newest, Limited to 20 Returns
         $.ajax({
-            url: "https://www.reddit.com/search.json?q=trashtag&sort=new&limit=20",
+            url: "https://www.reddit.com/search.json?q=trashtag&sort=new&limit=10",
             method: "GET"
         })
             // Function Runs after receiving response
@@ -88,20 +88,16 @@ $("#start-button").on("click", function(event) {
                     console.log(redditImage);
                     console.log(redditLink);
 
-                    // Creating Img Tag
-                    var redImg = $("<img src='" + redditImage + "' style='height:350px' style='width:400px'/>");
-
-                    var redTitle = $("<h4>" + redditTitle + "</h4>");
-
-                    // Creating Link Tag
-                    var redLink = $("<a href='https://www.reddit.com" + redditLink + "'>" + "Click here for the original post." + "</a>");
+                    var redditAppend = $('<div class="card horizontal blue-grey darken-1"><div class="card-image"><img src="'
+                        + redditImage +
+                        '" style="width:400px" style="height:300px"></div><div class="card-stacked"><div class="card-content white-text"><p>'
+                        + redditTitle +
+                        '</p></div><div class="card-action"><a href="'
+                        + redditLink +
+                        '">Original Post</a></div></div></div></div>');
 
                     // Appending to the Div
-                    $("#content-div").html(redImg);
-                    $("#content-div").html(redTitle);
-                    $("#content-div").html(redLink);
-                    console.log(redImg);
-
+                    $(".row-append").append(redditAppend);
                 };
             });
     });
@@ -135,12 +131,12 @@ $("#start-button").on("click", function(event) {
 
                     // Creating Link Tag
                     var ebAppend = $('<div class="card blue-grey darken-1" id="card-box"><div class="card-content white-text"><span class="card-title">'
-                    + ebTitle + 
-                    '"</span><p>"'
-                    + ebSnippet +
-                    '"</p></div><div class="card-action"><a href="#">"'
-                    + ebLink +
-                    '"</a></div></div>"');
+                        + ebTitle +
+                        '"</span><p>"'
+                        + ebSnippet +
+                        '"</p></div><div class="card-action"><a href="#">"'
+                        + ebLink +
+                        '"</a></div></div>"');
 
 
 
@@ -154,29 +150,29 @@ $("#start-button").on("click", function(event) {
     // OpenWeather On click event
     // TODO: Interaction with what particular responses we want to use from the Object
     // TODO: Include this API Pull with the Eventbrite button event? Pull weather info for the date of the event, in the zip code user provides?
-    $("#start-button").on("click", function () {
-        $(".row-append").empty();
-        $("#waterbottleconsumptionhtml").empty();
+    // $("#start-button").on("click", function () {
+    //     $(".row-append").empty();
+    //     $("#waterbottleconsumptionhtml").empty();
 
-        // Ajax Function searching Openweather for the current forecast in the zip code of the users input
-        $.ajax({
-            url: "http://api.openweathermap.org/data/2.5/weather?q=" + localStorage.getItem("zip code") + "&appid=37f408cc8e84667b979fff6911c58aa0",
-            method: "GET"
-        })
-            // Function Runs after receiving response
-            .then(function (weatherResponse) {
-                console.log(weatherResponse);
+    //     // Ajax Function searching Openweather for the current forecast in the zip code of the users input
+    //     $.ajax({
+    //         url: "http://api.openweathermap.org/data/2.5/weather?q=" + localStorage.getItem("zip code") + "&appid=37f408cc8e84667b979fff6911c58aa0",
+    //         method: "GET"
+    //     })
+    //         // Function Runs after receiving response
+    //         .then(function (weatherResponse) {
+    //             console.log(weatherResponse);
 
-                // Variables to be pulled and appended to the page
-                let owTemp = (weatherResponse.main.temp - 273.15) * (9 / 5) + 32;
-                let owForecast = weatherResponse.weather.main;
-                let owRain = weatherResponse.clouds.all;
+    //             // Variables to be pulled and appended to the page
+    //             let owTemp = (weatherResponse.main.temp - 273.15) * (9 / 5) + 32;
+    //             let owForecast = weatherResponse.weather.main;
+    //             let owRain = weatherResponse.clouds.all;
 
-                console.log(owTemp);
-                console.log(owForecast);
-                console.log(owRain);
-            });
-    });
+    //             console.log(owTemp);
+    //             console.log(owForecast);
+    //             console.log(owRain);
+    //         });
+    // });
 
     // NY Times On click event
     // TODO: Interaction with what particular responses we want to use from the Object
@@ -206,12 +202,12 @@ $("#start-button").on("click", function(event) {
 
                     // Creating Link Tag
                     var nytLink = $('<div class="card blue-grey darken-1" id="card-box"><div class="card-content white-text"><span class="card-title">'
-                    + nytSnippet + 
-                    '"</span><p>"'
-                    + nytLead +
-                    '"</p></div><div class="card-action"><a href="#">"'
-                    + nytURL +
-                    '"</a></div></div>"');
+                        + nytSnippet +
+                        '"</span><p>"'
+                        + nytLead +
+                        '"</p></div><div class="card-action"><a href="#">"'
+                        + nytURL +
+                        '"</a></div></div>"');
 
 
 
@@ -312,48 +308,80 @@ $("#earth-button").on("click", function () {
     $.ajax({
         url: "https:cors.io?https://api.earth911.com/earth911.getPostalData?api_key=27a4dfaff4691499&postal_code=" + localStorage.getItem("zip code") + "&country=us",
         method: "GET",
-        headers: {  'Access-Control-Allow-Origin': '*' }, 
+        headers: { 'Access-Control-Allow-Origin': '*' },
     }).then(function (earthResponse) {
-            var data = JSON.parse(earthResponse);
-            console.log("data" + data);
-            let earthLat = data.result.latitude;
-            let earthLong = data.result.longitude;
-            console.log("lat" + earthLat);
-            console.log("long" + earthLong);
+        var data = JSON.parse(earthResponse);
+        console.log("data" + data);
+        let earthLat = data.result.latitude;
+        let earthLong = data.result.longitude;
 
-            $.ajax({
-                url: "https:cors.io?https://api.earth911.com/earth911.searchLocations?api_key=27a4dfaff4691499&latitude=" + earthLat + "&longitude=" + earthLong + "&max_results=5",
-                method: "GET",
-                headers: {  'Access-Control-Allow-Origin': '*' },
-            }).then(function (earthResponse2){
-                var data2 = JSON.parse(earthResponse2);
-                // For loop to cycle through the results
-                for (var i = 0; i < 11; i++) {
+        console.log("lat" + earthLat);
+        console.log("long" + earthLong);
 
-                    console.log(data2);
-                    // Variables to be pulled and appended to the page
-                    let earthName = data2.result[i].description;
-                    let earthType = data2.result[i].location_type_id;
-                    let earthDistance = data2.result[i].distance;
+        $.ajax({
+            url: "https:cors.io?https://api.earth911.com/earth911.searchLocations?api_key=27a4dfaff4691499&latitude=" + earthLat + "&longitude=" + earthLong + "&max_results=5",
+            method: "GET",
+            headers: { 'Access-Control-Allow-Origin': '*' },
+        }).then(function (earthResponse2) {
+            var data2 = JSON.parse(earthResponse2);
+            // For loop to cycle through the results
+            for (var i = 0; i < 11; i++) {
+
+                console.log(data2);
+                // Variables to be pulled and appended to the page
+                let earthName = data2.result[i].description;
+                let earthType = data2.result[i].location_type_id;
+                let earthDistance = data2.result[i].distance;
+                let earthLoc = data2.result[i].location_id;
 
 
-                    console.log(earthName);
-                    console.log(earthType);
+                console.log(earthName);
+                console.log(earthType);
+                console.log(earthDistance);
+                console.log("Location" + earthLoc);
 
-                    var earthAppend = $('<div class="card blue-grey darken-1" id="card-box"><div class="card-content white-text"><span class="card-title">'
-                    + earthName + 
-                    '"</span><p>"'
+                var earthAppend = $('<div class="card blue-grey darken-1" id="card-box"><div class="card-content white-text"><span class="card-title">'
                     + earthName +
-                    '"</p></div><div class="card-action"><p style="color:white">Distance to this Location: '
+                    '</span><p>Recyclable Materials accepted at this Location: '
+                    + earthLoc +
+                    '</p></div><div class="card-action"><p style="color:white">Distance to this Location: '
                     + earthDistance +
-                    '</p></div></div>"');
+                    ' Miles.</p></div></div>"');
+
+                // Appending to the Div
+                $(".row-append").append(earthAppend);
+
+                // $.ajax({
+                //     url: "https:cors.io?https://api.earth911.com/earth911.getLocationDetails?api_key=27a4dfaff4691499&location_id=" + earthLoc,
+                //     method: "GET",
+                //     headers: { 'Access-Control-Allow-Origin': '*' },
+                // }).then(function (earthResponse3) {
+                //     var data3 = JSON.parse(earthResponse3);
+                //     console.log(data3);
+                //     // For loop to cycle through the results
+                //     for (var i = 0; i < 11; i++) {
+
+                //         for (var j = 0; j < 10; j++) {
+
+                //             let earthProduct = data3.result.earthLoc.materials[j].description;
+                //             console.log(earthProduct);
 
 
 
-                    // Appending to the Div
-                    $(".row-append").append(earthAppend);
 
-                }
+                //         }
+                //     }
+                //     });
+                };
             });
     });
 });
+// Earth911 API
+// $("#earth2-button").on("click", function () {
+//     console.log("button clicked");
+
+//     $(".row-append").empty();
+//     $("#waterbottleconsumptionhtml").empty();
+
+
+// });
