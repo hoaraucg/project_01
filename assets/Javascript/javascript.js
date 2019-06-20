@@ -66,6 +66,7 @@ $(document).ready(function () {
     $("#reddit-button").on("click", function () {
         $(".row-append").empty();
         $("#waterbottleconsumptionhtml").hide();
+        $(".row-append").append("<p><b><i>What is #trashtag? It’s a movement. It’s campers, hikers, outdoorspeople everywhere joining in and committing to removing trash from beautiful places. Join us, LET’S MAKE A DIFFERENCE!</i></b></p><br>")
 
 
         // Ajax Function searching Reddit API for Trashtag, Sorted by newest, Limited to 20 Returns
@@ -107,6 +108,7 @@ $(document).ready(function () {
     $("#eb-button").on("click", function () {
         $(".row-append").empty();
         $("#waterbottleconsumptionhtml").hide();
+        $(".row-append").append("<p><b><i>By reducing litter we lessen pollution, improve air and water quality, decrease the spread of diseases, and enhance the environment for not only plants and animals, but ourselves and future generations.  Get involved today!</i></b></p><br>")
 
         // Ajax Function searching Eventbrite, filtered by Subcategories including Community and Environment, Zip Code used to return results sorted by closest to farthest from the user's Input
         $.ajax({
@@ -179,6 +181,7 @@ $(document).ready(function () {
     $("#nyt-button").on("click", function () {
         $(".row-append").empty();
         $("#waterbottleconsumptionhtml").hide();
+        $(".row-append").append("<p><b><i>Staying informed and educated is an easy way to reinforce the importance of reduce, reuse, recycle.</i></b></p><br>");
 
         $.ajax({
             url: "https://api.nytimes.com/svc/search/v2/articlesearch.json?&q=nature&sort=newest&api-key=kfv7BnPMd5mvBPeGSaKGQdhyRAGGhhWG",
@@ -227,6 +230,7 @@ $(document).ready(function () {
 
     $("#consumption-button").on("click", function () {
         $(".row-append").empty();
+        $(".row-append").append("<p><b><i>Did you know:  Plastic bottles require up to 700 years to dissolve and 38 million plastic bottles go to landfill each year in America alone.  Plastic bottles aren’t just bad for the environment, as they decompose they release toxins that affect reproduction and can cause cancer.</p><br><br><p>Select your reusable water bottle size:</i></b></p><br>");
 
         $("#waterbottleconsumptionhtml").show();
         //global variables
@@ -304,6 +308,7 @@ $("#earth-button").on("click", function () {
 
     $(".row-append").empty();
     $("#waterbottleconsumptionhtml").hide();
+    $(".row-append").append("<p><b><i>Often times not knowing what you can recycle and where can make even the most environmentally conscious person send something to the landfill that could actually be recycled.  Using a simple material and zip code search, you can easily find your recycling solution.</i></b></p><br>");
 
     $.ajax({
         url: "https:cors.io?https://api.earth911.com/earth911.getPostalData?api_key=27a4dfaff4691499&postal_code=" + localStorage.getItem("zip code") + "&country=us",
